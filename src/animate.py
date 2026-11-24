@@ -1,4 +1,4 @@
-# src/run_and_animate.py
+# src/animate.py
 import numpy as np
 from env import HighwayEnv
 from trajectories import generate_trajectories
