@@ -10,8 +10,14 @@ DT = 0.1
 HORIZON = 3.0
 N_SAMPLES = 50  # reduce for quick runs
 
+# Initialize random generators for reproducibility
+seed = random.randint(0, 10**9)
+np.random.seed(seed)
+rng = np.random.default_rng(seed)
+
 
 print(">>> Running planner test")
+print("Random seed:", seed)
 
 # -----------------------------------
 # 1. Initialize environment
@@ -37,7 +43,8 @@ risks = estimate_risk_for_all(
     others_initial_state=others_state,
     n_samples=N_SAMPLES,
     dt=DT,
-    horizon=HORIZON
+    horizon=HORIZON,
+    rng=rng
 )
 
 print("\n--- Risk Summary ---")
@@ -68,7 +75,6 @@ print(f"\n>>> Best trajectory selected = {best_idx+1}")
 # 5. LOGGING SYSTEM
 # -----------------------------------
 run_id = make_run_id()
-seed = random.randint(0, 10**9)
 traj_types = ["keep", "brake", "lane_left", "lane_right"]
 
 # Save detailed JSON info
