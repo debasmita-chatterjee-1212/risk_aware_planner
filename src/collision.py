@@ -15,7 +15,8 @@ def check_collision(ego_traj, others_trajs):
     Returns:
         collided: bool
         collision_t: timestep of the first collision or None
-        min_distance: float (minimum center-to-center distance)
+        min_distance: float (minimum center-to-center distance
+                      across the entire planning horizon)
     """
     T = ego_traj.shape[0]
 
@@ -32,11 +33,11 @@ def check_collision(ego_traj, others_trajs):
             dist = np.sqrt((ex - ox)**2 + (ey - oy)**2)
             min_distance = min(min_distance, dist)
 
-            # AABB overlap check
-            if aabb_overlap(ex, ey, ox, oy):
-                return True, t, min_distance
+            # Record the first collision without terminating the loop
+            if collision_t is None and aabb_overlap(ex, ey, ox, oy):
+                collision_t = t
 
-    return False, None, min_distance
+    return collision_t is not None, collision_t, min_distance
 
 
 def aabb_overlap(ex, ey, ox, oy):
