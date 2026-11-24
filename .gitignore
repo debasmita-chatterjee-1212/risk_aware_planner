@@ -6,3 +6,5 @@ results/
 *.gif
 *.mp4
 env/
+desktop.ini
+!assets/planner_demo.gif
