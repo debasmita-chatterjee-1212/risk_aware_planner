@@ -14,7 +14,7 @@ ego_trajs = generate_trajectories(ego_state)
 T = ego_trajs[0].shape[0]
 others_trajs = []
 
-# Static car at x = 30 m, same lane (y=3.5), v = 0
+# Static car at x = 20 m, same lane (y=3.5), v = 0
 other_traj = []
 for t in range(T):
     other_traj.append([20.0, 3.5, 0.0])
